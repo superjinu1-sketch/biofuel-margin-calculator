@@ -64,7 +64,7 @@ function SummaryCard({
 }) {
   return (
     <div
-      className={`rounded-xl p-4 ${
+      className={`rounded-xl p-3 sm:p-4 ${
         highlight
           ? "bg-emerald-500 dark:bg-emerald-600 text-white"
           : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
@@ -78,7 +78,7 @@ function SummaryCard({
         {label}
       </p>
       <p
-        className={`text-lg font-bold ${
+        className={`text-sm sm:text-base font-bold break-all ${
           highlight ? "text-white" : "text-slate-900 dark:text-slate-100"
         }`}
       >
@@ -103,14 +103,14 @@ function BreakdownRow({
 }) {
   return (
     <div
-      className={`flex justify-between items-center py-2 ${
+      className={`flex justify-between items-baseline gap-2 py-2 ${
         total
           ? "border-t-2 border-slate-300 dark:border-slate-600 mt-1 pt-3"
           : "border-b border-slate-100 dark:border-slate-700/50"
-      } ${sub ? "pl-4" : ""}`}
+      } ${sub ? "pl-3 sm:pl-4" : ""}`}
     >
       <span
-        className={`text-sm ${
+        className={`text-xs sm:text-sm min-w-0 flex-shrink ${
           highlight
             ? "font-bold text-emerald-600 dark:text-emerald-400"
             : total
@@ -121,9 +121,9 @@ function BreakdownRow({
         {label}
       </span>
       <span
-        className={`text-sm font-mono ${
+        className={`text-xs sm:text-sm font-mono flex-shrink-0 text-right ${
           highlight
-            ? "font-bold text-emerald-600 dark:text-emerald-400 text-base"
+            ? "font-bold text-emerald-600 dark:text-emerald-400 text-sm sm:text-base"
             : total
             ? "font-semibold text-slate-800 dark:text-slate-200"
             : "text-slate-700 dark:text-slate-300"
@@ -165,11 +165,12 @@ function NumberInput({
         )}
         <input
           type="number"
+          inputMode="decimal"
           value={value}
           step={step}
           min={min}
           onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
-          className="w-full rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition"
+          className="w-full rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-base font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition"
         />
         {suffix && (
           <span className="text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap select-none">
@@ -223,21 +224,22 @@ function ExtraItems({
             placeholder="항목명"
             value={item.name}
             onChange={(e) => update(item.id, "name", e.target.value)}
-            className="flex-1 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="flex-1 min-w-0 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-base text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
           />
           <input
             type="number"
+            inputMode="decimal"
             placeholder="$/MT"
             value={item.amount}
             min={0}
             onChange={(e) =>
               update(item.id, "amount", parseFloat(e.target.value) || 0)
             }
-            className="w-24 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="w-20 sm:w-24 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 px-2 sm:px-3 py-2 text-base font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
           />
           <button
             onClick={() => remove(item.id)}
-            className="text-slate-400 hover:text-red-500 transition text-lg leading-none px-1"
+            className="text-slate-400 hover:text-red-500 transition text-xl leading-none px-1 flex-shrink-0"
           >
             ×
           </button>
@@ -283,12 +285,12 @@ function ModeA() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* 입력 패널 */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-4">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 sm:p-6 space-y-4">
         <h2 className="text-base font-semibold text-slate-700 dark:text-slate-300 border-b border-slate-100 dark:border-slate-700 pb-3">
           입력 값
         </h2>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-4">
           <NumberInput
             label="FOB 구매가"
             value={inputs.fobPrice}
@@ -308,7 +310,7 @@ function ModeA() {
           <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
             물류비 ($/MT)
           </p>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-4">
             <NumberInput
               label="해상운임"
               value={inputs.freight}
@@ -347,7 +349,7 @@ function ModeA() {
           />
         </div>
 
-        <div className="border-t border-slate-100 dark:border-slate-700 pt-4 grid grid-cols-2 gap-4">
+        <div className="border-t border-slate-100 dark:border-slate-700 pt-4 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-4">
           <NumberInput
             label="환율 (USD/KRW)"
             value={inputs.exchangeRate}
@@ -367,7 +369,7 @@ function ModeA() {
       {/* 결과 패널 */}
       <div className="space-y-4">
         {/* 원가 Breakdown */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 sm:p-6">
           <h2 className="text-base font-semibold text-slate-700 dark:text-slate-300 border-b border-slate-100 dark:border-slate-700 pb-3 mb-4">
             원가 구조 (MT당)
           </h2>
@@ -512,7 +514,7 @@ function ModeB() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* 입력 패널 */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-4">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 sm:p-6 space-y-4">
         <h2 className="text-base font-semibold text-slate-700 dark:text-slate-300 border-b border-slate-100 dark:border-slate-700 pb-3">
           입력 값
         </h2>
@@ -585,7 +587,7 @@ function ModeB() {
           <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-3">
             물류비 ($/MT)
           </p>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-4">
             <NumberInput
               label="해상운임"
               value={inputs.freight}
@@ -624,7 +626,7 @@ function ModeB() {
           />
         </div>
 
-        <div className="border-t border-slate-100 dark:border-slate-700 pt-4 grid grid-cols-2 gap-4">
+        <div className="border-t border-slate-100 dark:border-slate-700 pt-4 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-4">
           <NumberInput
             label="환율 (USD/KRW)"
             value={inputs.exchangeRate}
@@ -644,7 +646,7 @@ function ModeB() {
       {/* 결과 패널 */}
       <div className="space-y-4">
         {/* 역산 Breakdown */}
-        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 sm:p-6">
           <h2 className="text-base font-semibold text-slate-700 dark:text-slate-300 border-b border-slate-100 dark:border-slate-700 pb-3 mb-4">
             역산 구조 (MT당)
           </h2>
@@ -769,36 +771,38 @@ export default function Home() {
       <header className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-4">
           <div>
-            <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+            <h1 className="text-base sm:text-xl font-bold text-slate-900 dark:text-slate-100 leading-tight">
               바이오연료 원료 마진 계산기
             </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 hidden sm:block">
               한국-말레이시아 팜유 부산물 (POME/PAO) 트레이딩
             </p>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex gap-1 pb-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex gap-1 pb-0 overflow-x-auto">
           <button
             onClick={() => setActiveTab("A")}
-            className={`px-5 py-2.5 text-sm font-medium rounded-t-xl transition border-b-2 ${
+            className={`flex-shrink-0 px-3 sm:px-5 py-2.5 text-xs sm:text-sm font-medium rounded-t-xl transition border-b-2 whitespace-nowrap ${
               activeTab === "A"
                 ? "border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
                 : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
             }`}
           >
-            모드 A — 구매가 기준 → 판매가 산출
+            <span className="sm:hidden">모드 A — 구매가→판매가</span>
+            <span className="hidden sm:inline">모드 A — 구매가 기준 → 판매가 산출</span>
           </button>
           <button
             onClick={() => setActiveTab("B")}
-            className={`px-5 py-2.5 text-sm font-medium rounded-t-xl transition border-b-2 ${
+            className={`flex-shrink-0 px-3 sm:px-5 py-2.5 text-xs sm:text-sm font-medium rounded-t-xl transition border-b-2 whitespace-nowrap ${
               activeTab === "B"
                 ? "border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
                 : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
             }`}
           >
-            모드 B — 판매가 기준 → 구매가 역산
+            <span className="sm:hidden">모드 B — 판매가→구매가</span>
+            <span className="hidden sm:inline">모드 B — 판매가 기준 → 구매가 역산</span>
           </button>
         </div>
       </header>
